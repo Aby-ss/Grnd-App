@@ -34,15 +34,24 @@ const styles = StyleSheet.create({
     marginRight: 285,
   },
   timer_headerText: {
-    fontSize: 25, // Large font size for the header text
-    fontWeight: 'bold', // Bold text
-    color: '#333', // Dark gray text color
-    marginTop: -65,
-    marginLeft: 0,
+    fontSize: 35,
+    fontWeight: '700',
+    color: '#333',
+    position: 'absolute',
+    top: 155,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
   },
   timer_subheader: {
-    fontSize: 15,
-    marginLeft: 0,
+    fontSize: 18,
+    fontWeight: '400',
+    color: '#333',
+    position: 'absolute',
+    top: 200,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
   },
   quotesHeading: {
     fontSize: 21, // Large font size for the header text
