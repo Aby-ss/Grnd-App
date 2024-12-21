@@ -1,74 +1,70 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from 'react';
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
+// Main component that represents the home screen
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    // Container for the entire screen with ScrollView for scrolling
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      {/* Header section with an image */}
+      <View style={styles.header}>
+        <Text style={styles.timer_headerText}>Choose Duration</Text>
+        <Text style={styles.timer_subheader}>Start a session on December 20</Text>
+      </View>
+    </ScrollView>
   );
 }
 
+// Styles for various components
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  scrollContainer: {
+    flexGrow: 1, // Ensures the ScrollView adapts to its content
+    backgroundColor: '#f5f5f5', // Light gray background color
+    padding: 16, // Padding around the edges
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  header: {
+    alignItems: 'center', // Center the header content horizontally
+    marginBottom: 22, // Spacing below the header
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  headerImage: {
+    width: 70, // Width of the image
+    height: 70, // Height of the image
+    borderRadius: 75, // Makes the image circular
+    marginTop: 65,
+    marginRight: 285,
+  },
+  timer_headerText: {
+    fontSize: 25, // Large font size for the header text
+    fontWeight: 'bold', // Bold text
+    color: '#333', // Dark gray text color
+    marginTop: -65,
+    marginLeft: 0,
+  },
+  timer_subheader: {
+    fontSize: 15,
+    marginLeft: 0,
+  },
+  quotesHeading: {
+    fontSize: 21, // Large font size for the header text
+    fontWeight: 'bold', // Bold text
+    color: '#333', // Dark gray text color
+    marginTop: 15, // Adjust positioning
+    marginLeft: 10,
+  },
+  section: {
+    backgroundColor: '#d1cfcf', // Light gray background for sections
+    marginBottom: 16, // Spacing below each section
+    padding: 16,
+    marginTop: 15,
+    borderRadius: 5,
+  },
+  paragraph: {
+    fontSize: 16, // Normal font size for paragraphs
+    color: '#666', // Lighter gray color
+    lineHeight: 22, // Better line spacing for readability
+  },
+  bold: {
+    fontWeight: 'bold', // Bold text for emphasis
+    color: '#000', // Black text for emphasis
   },
 });
