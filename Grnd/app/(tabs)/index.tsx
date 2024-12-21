@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState } from "react";
+import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { View, Text, Image, StyleSheet, ScrollView, TextInput } from 'react-native';
 
 // Main component that represents the home screen
 export default function HomeScreen() {
     const [taskName, settaskName] = useState("");
+    const [sliderValue, setSliderValue] = useState(0);
   return (
     // Container for the entire screen with ScrollView for scrolling
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -23,6 +25,29 @@ export default function HomeScreen() {
                 style={styles.input}
             />
       <Text style={styles.inputsec_subText}>Fun Fact : Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
+
+      <View style={styles.sliderContainer}>
+        <AnimatedCircularProgress
+          size={180}
+          width={15}
+          fill={sliderValue}
+          tintColor="#4CAF50"
+          backgroundColor="#ddd"
+          onAnimationComplete={() => console.log("Animation complete")}
+        >
+          {(fill) => (
+            <Text style={styles.sliderValueText}>{Math.round(fill)}%</Text>
+          )}
+        </AnimatedCircularProgress>
+        <TextInput
+          style={styles.sliderInput}
+          placeholder="Choose a duration ..."
+          keyboardType="numeric"
+          onChangeText={(value) =>
+            setSliderValue(Math.min(Math.max(parseInt(value) || 0, 0), 100))
+          }
+        />
+      </View>
     </ScrollView>
   );
 }
@@ -119,4 +144,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2, // Thickness of the bottom border
     borderBottomColor: "#000", // Black color for the bottom border
   },
+  sliderContainer: {
+    marginTop: -335,
+    alignItems: "center",
+  },
+  sliderValueText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  sliderInput: {
+    marginTop: 20,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#000",
+    width: "50%",
+    textAlign: "center",
+  },
+
 });
