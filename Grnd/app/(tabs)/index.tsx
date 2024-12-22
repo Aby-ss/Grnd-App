@@ -111,13 +111,6 @@ const styles = StyleSheet.create({
     right: 0,
     textAlign: 'center',
   },
-  quotesHeading: {
-    fontSize: 21, // Large font size for the header text
-    fontWeight: 'bold', // Bold text
-    color: '#333', // Dark gray text color
-    marginTop: 15, // Adjust positioning
-    marginLeft: 10,
-  },
   section: {
     backgroundColor: '#d1cfcf', // Light gray background for sections
     marginBottom: 16, // Spacing below each section
