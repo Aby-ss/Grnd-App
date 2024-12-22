@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState } from "react";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
+import { RadialSlider } from 'react-native-radial-slider';
 import { View, Text, Image, StyleSheet, ScrollView, TextInput } from 'react-native';
 
 // Main component that represents the home screen
-export default function HomeScreen() {
+export default function HomeScreen(this: any) {
     const [taskName, settaskName] = useState("");
-    const [sliderValue, setSliderValue] = useState(0);
+    const [speed, setSpeed] = useState(0);
   return (
     // Container for the entire screen with ScrollView for scrolling
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -27,25 +28,22 @@ export default function HomeScreen() {
       <Text style={styles.inputsec_subText}>Fun Fact : Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
 
       <View style={styles.sliderContainer}>
-        <AnimatedCircularProgress
-          size={180}
-          width={15}
-          fill={sliderValue}
-          tintColor="#4CAF50"
-          backgroundColor="#ddd"
-          onAnimationComplete={() => console.log("Animation complete")}
-        >
-          {(fill) => (
-            <Text style={styles.sliderValueText}>{Math.round(fill)}%</Text>
-          )}
-        </AnimatedCircularProgress>
-        <TextInput
-          style={styles.sliderInput}
-          placeholder="Choose a duration ..."
-          keyboardType="numeric"
-          onChangeText={(value) =>
-            setSliderValue(Math.min(Math.max(parseInt(value) || 0, 0), 100))
-          }
+
+        <RadialSlider
+          style={styles.circularContainer}
+          variant={'radial-circle-slider'}
+          value={speed}
+          min={0}
+          max={120}
+          onChange={setSpeed}
+          title='Choose a duration'
+          subTitle=''
+          unit='mins'
+          thumbColor='#36d424'
+          markerLineSize={10}
+          sliderTrackColor='#F5F5F5'
+          linearGradient={[ { offset: '0%', color:'#7ED052' }, { offset: '100%', color: '#9DE10E' }]}
+          isHideLines
         />
       </View>
     </ScrollView>
@@ -56,7 +54,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1, // Ensures the ScrollView adapts to its content
-    backgroundColor: '#f5f5f5', // Light gray background color
+    backgroundColor: '#E9E9E9', // Light gray background color
     padding: 16, // Padding around the edges
   },
   header: {
@@ -154,5 +152,8 @@ const styles = StyleSheet.create({
     width: "50%",
     textAlign: "center",
   },
-
+  circularContainer: {
+    marginTop: 0,
+    marginBottom: 100
+  },
 });
