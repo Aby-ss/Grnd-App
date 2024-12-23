@@ -2,15 +2,40 @@ import React from 'react';
 import { useState } from "react";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { RadialSlider } from 'react-native-radial-slider';
-import { View, Text, Image, StyleSheet, ScrollView, TextInput } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 
 // Main component that represents the home screen
 export default function HomeScreen(this: any) {
     const [taskName, settaskName] = useState("");
     const [speed, setSpeed] = useState(0);
+
+    const gradientColors = speed < 20
+    ? [
+        { offset: '0%', color: '#FFFF00' }, // Yellow
+        { offset: '100%', color: '#FF9900' } // Orange
+      ]
+    : speed < 40
+    ? [
+        { offset: '0%', color: '#FF9900' }, // Orange
+        { offset: '100%', color: '#FF0000' } // Red
+      ]
+    : [
+        { offset: '0%', color: '#7ED052' }, // Green Gradient Start
+        { offset: '100%', color: '#9DE10E' } // Green Gradient End
+      ];
+
+    const thumbColor = speed < 40 ? '#FF0000' : '#36d424'; // Red for <40, Green otherwise
+
+
   return (
     // Container for the entire screen with ScrollView for scrolling
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <View style={styles.scrollContainer}>
+      <View style={styles.cancelbtn_container}>
+        <TouchableOpacity style={[styles.cancelButton]}>
+            <Text style={[styles.btn_text, styles.cancelText]}>Cancel</Text>
+        </TouchableOpacity>
+      </View>
+
       {/* Hero Section text/headers */}
       <View style={styles.header}>
         <Text style={styles.timer_headerText}>Choose Duration</Text>
@@ -39,14 +64,26 @@ export default function HomeScreen(this: any) {
           title='Choose a duration'
           subTitle=''
           unit='mins'
-          thumbColor='#36d424'
+          thumbColor={thumbColor}
           markerLineSize={10}
           sliderTrackColor='#F5F5F5'
-          linearGradient={[ { offset: '0%', color:'#7ED052' }, { offset: '100%', color: '#9DE10E' }]}
+          linearGradient={gradientColors}
           isHideLines
         />
       </View>
-    </ScrollView>
+
+      <View style={styles.btn_container}>
+        {/* Black Button */}
+        <TouchableOpacity style={[styles.button, styles.whiteButton]}>
+                  <Text style={[styles.btn_text, styles.blackText]}>Start Later</Text>
+        </TouchableOpacity>
+
+        {/* White Button */}
+        <TouchableOpacity style={[styles.button, styles.blackButton]}>
+            <Text style={[styles.btn_text, styles.whiteText]}>Start Now</Text>
+        </TouchableOpacity>
+      </View>      
+    </View>
   );
 }
 
@@ -59,7 +96,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center', // Center the header content horizontally
-    marginBottom: 22, // Spacing below the header
+    marginBottom: 8, // Spacing below the header
   },
   headerImage: {
     width: 70,
@@ -73,9 +110,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#333',
     position: 'absolute',
-    top: 520,
+    top: 505,
     left: 0,
-    right: 210,
+    right: 200,
     textAlign: 'center',
   },
   inputsec_subText: {
@@ -83,7 +120,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#333',
     position: 'absolute',
-    top: 610,
+    top: 590,
     left: 10,
     right: 0,
     width: 350,
@@ -155,5 +192,58 @@ const styles = StyleSheet.create({
   circularContainer: {
     marginTop: 0,
     marginBottom: 100
+  },
+  btn_container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    marginTop: 80,
+  },
+  cancelbtn_container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  button: {
+    flex: 1,
+    padding: 16,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 8,
+  },
+  blackButton: {
+      backgroundColor: '#000',
+  },
+  cancelButton: {
+    backgroundColor: '#EFEFEF',
+    flex: 1,
+    padding: 10,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute', // Make the position adjustable
+    left: 15,
+    top: 60,
+  },
+  whiteButton: {
+      backgroundColor: '#FFF',
+      borderWidth: 1,
+      borderColor: '#000',
+  },
+  btn_text: {
+      fontSize: 16,
+      fontWeight: '700',
+  },
+  whiteText: {
+      color: '#FFF',
+  },
+  blackText: {
+      color: '#000',
+  },
+  cancelText: {
+    color: '#007FC2'
   },
 });
