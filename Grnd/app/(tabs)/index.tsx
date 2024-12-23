@@ -24,7 +24,11 @@ export default function HomeScreen(this: any) {
         { offset: '100%', color: '#9DE10E' } // Green Gradient End
       ];
 
-    const thumbColor = speed < 40 ? '#FF0000' : '#36d424'; // Red for <40, Green otherwise
+      const thumbColor = speed < 20 
+      ? '#FF9900' // Yellow for speed < 20
+      : speed < 40 
+      ? '#FF0000' // Orange for 20 <= speed < 40
+      : '#36d424'; // Green for speed >= 40
 
 
   return (
