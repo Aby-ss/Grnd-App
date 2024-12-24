@@ -1,109 +1,101 @@
-import { StyleSheet, Image, Platform } from 'react-native';
-
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+import React from 'react';
+import { useState } from "react";
+import LinearGradient from 'react-native-linear-gradient';
+import { View, Text, Image, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 
 export default function TabTwoScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user's current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <View style={styles.scrollContainer}>
+      { /* Header Section with Duration left + Motivational Quote */ }
+      <Text style={[styles.headerText, styles.durationLeft]}>Duration Left : 1 hr 20 mins</Text>
+      <Text style={[styles.subText, styles.motivationalQuote]}>"Most of the important things in the world have been accomplished by people who have kept on trying when there seemed to be no hope at all."      —Dale Carnegie</Text>
+
+      <View style={styles.durationContainer}>
+        <Text style={[styles.subText, styles.progressHeader]}>75% Progress</Text>
+        <View style={styles.completedProgress}></View>
+        <View style={styles.durationProgress}></View>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  scrollContainer: {
+    flexGrow: 1, // Ensures the ScrollView adapts to its content
+    backgroundColor: '#E9E9E9', // Light gray background color
+    padding: 16, // Padding around the edges
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
+  header: {
+    alignItems: 'center', // Center the header content horizontally
+    marginBottom: 8, // Spacing below the header
+  },
+  headerImage: {
+    width: 70,
+    height: 70, 
+    borderRadius: 75, 
+    marginTop: 65,
+    marginRight: 285,
+  },
+  headerText: {
+    fontSize: 25,
+    fontWeight: '800',
+    color: '#333'
+  },
+  subText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#777777',
+  },
+  motivationalQuote: {
+    position: 'absolute',
+    top: 150,
+    left: 40,
+    right: 0,
+    width: 300,
+    textAlign: 'center',
+  },
+  progressHeader: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#333',
+    position: 'absolute',
+    top: 10,
+    left: 20,
+    right: 0,
+  },
+  durationLeft: {
+    position: 'absolute',
+    top: 100,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+  },
+  durationContainer: {
+    width: 350,
+    height: 100,
+    backgroundColor: '#EBEBEB',
+    borderRadius: 10,
+    position: 'absolute',
+    top: 270,
+    alignSelf: 'center', // Centers it horizontally in the parent
+    borderWidth: 2,
+    borderColor: '#BABABA'
+  },
+  durationProgress: {
+    width: 320,
+    height: 45,
+    backgroundColor: '#E5E5E5',
+    borderRadius: 10,
+    position: 'absolute',
+    top: 40,
+    alignSelf: 'center', // Centers it horizontally in the parent
+  },
+  completedProgress: {
+    width: 320,
+    height: 45,
+    borderRadius: 10,
+    position: 'absolute',
+    top: 0,
+    alignSelf: 'center', // Centers it horizontally in the parent
   },
 });
