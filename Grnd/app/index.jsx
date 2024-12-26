@@ -1,11 +1,10 @@
 import React from 'react';
 import { useState } from "react";
-import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { RadialSlider } from 'react-native-radial-slider';
 import { View, Text, Image, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 
 // Main component that represents the home screen
-export default function HomeScreen(this: any) {
+export default function HomeScreen() {
     const [taskName, settaskName] = useState("");
     const [speed, setSpeed] = useState(0);
 
