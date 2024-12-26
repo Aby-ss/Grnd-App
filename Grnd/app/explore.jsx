@@ -1,14 +1,14 @@
 import React from 'react';
-import { useState } from "react";
-import LinearGradient from 'react-native-linear-gradient';
-import { View, Text, Image, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 export default function TabTwoScreen() {
   return (
     <View style={styles.scrollContainer}>
-      { /* Header Section with Duration left + Motivational Quote */ }
+      {/* Header Section with Duration left + Motivational Quote */}
       <Text style={[styles.headerText, styles.durationLeft]}>Duration Left : 1 hr 20 mins</Text>
-      <Text style={[styles.subText, styles.motivationalQuote]}>"Most of the important things in the world have been accomplished by people who have kept on trying when there seemed to be no hope at all."      —Dale Carnegie</Text>
+      <Text style={[styles.subText, styles.motivationalQuote]}>
+        "Most of the important things in the world have been accomplished by people who have kept on trying when there seemed to be no hope at all." —Dale Carnegie
+      </Text>
 
       <View style={styles.durationContainer}>
         <Text style={[styles.subText, styles.progressHeader]}>75% Progress</Text>
@@ -31,15 +31,15 @@ const styles = StyleSheet.create({
   },
   headerImage: {
     width: 70,
-    height: 70, 
-    borderRadius: 75, 
+    height: 70,
+    borderRadius: 75,
     marginTop: 65,
     marginRight: 285,
   },
   headerText: {
     fontSize: 25,
     fontWeight: '800',
-    color: '#333'
+    color: '#333',
   },
   subText: {
     fontSize: 16,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     top: 270,
     alignSelf: 'center', // Centers it horizontally in the parent
     borderWidth: 2,
-    borderColor: '#BABABA'
+    borderColor: '#BABABA',
   },
   durationProgress: {
     width: 320,
