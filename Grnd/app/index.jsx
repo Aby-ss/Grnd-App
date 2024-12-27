@@ -1,93 +1,104 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { RadialSlider } from 'react-native-radial-slider';
-import { View, Text, Image, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { router } from 'expo-router';
 
-// Main component that represents the home screen
 export default function HomeScreen() {
-    const [taskName, settaskName] = useState("");
+    const [taskName, setTaskName] = useState("");
     const [speed, setSpeed] = useState(0);
 
     const gradientColors = speed < 20
-    ? [
-        { offset: '0%', color: '#FFFF00' }, // Yellow
-        { offset: '100%', color: '#FF9900' } // Orange
-      ]
-    : speed < 40
-    ? [
-        { offset: '0%', color: '#FF9900' }, // Orange
-        { offset: '100%', color: '#FF0000' } // Red
-      ]
-    : [
-        { offset: '0%', color: '#7ED052' }, // Green Gradient Start
-        { offset: '100%', color: '#9DE10E' } // Green Gradient End
-      ];
+        ? [
+            { offset: '0%', color: '#FFFF00' },
+            { offset: '100%', color: '#FF9900' }
+          ]
+        : speed < 40
+        ? [
+            { offset: '0%', color: '#FF9900' },
+            { offset: '100%', color: '#FF0000' }
+          ]
+        : [
+            { offset: '0%', color: '#7ED052' },
+            { offset: '100%', color: '#9DE10E' }
+          ];
 
-      const thumbColor = speed < 20 
-      ? '#FF9900' // Yellow for speed < 20
-      : speed < 40 
-      ? '#FF0000' // Orange for 20 <= speed < 40
-      : '#36d424'; // Green for speed >= 40
+    const thumbColor = speed < 20 
+        ? '#FF9900'
+        : speed < 40 
+        ? '#FF0000'
+        : '#36d424';
 
+    const handleStartNow = () => {
+        if (speed === 0 || taskName.trim() === "") {
+            Alert.alert(
+                "👀 You ... missed the part where you input stuff",
+                "Please select a duration for the session and enter a session title",
+                [{ text: "Ok bro" }]
+            );
+            return;
+        }
+        
+        router.push({
+            pathname: "/Session",
+            params: { duration: speed, title: taskName }
+        });
+    };
 
-  return (
-    // Container for the entire screen with ScrollView for scrolling
-    <View style={styles.scrollContainer}>
-      <View style={styles.cancelbtn_container}>
-        <TouchableOpacity style={[styles.cancelButton]}>
-            <Text style={[styles.btn_text, styles.cancelText]}>Cancel</Text>
-        </TouchableOpacity>
-      </View>
+    return (
+        <View style={styles.scrollContainer}>
+            <View style={styles.cancelbtn_container}>
+                <TouchableOpacity style={styles.cancelButton}>
+                    <Text style={[styles.btn_text, styles.cancelText]}>Cancel</Text>
+                </TouchableOpacity>
+            </View>
 
-      {/* Hero Section text/headers */}
-      <View style={styles.header}>
-        <Text style={styles.timer_headerText}>Choose Duration</Text>
-        <Text style={styles.timer_subheader}>Start a session on December 20</Text>
-      </View>
+            <View style={styles.header}>
+                <Text style={styles.timer_headerText}>Choose Duration</Text>
+                <Text style={styles.timer_subheader}>Start a session on December 20</Text>
+            </View>
 
-      {/* Session Title input section */}
-      <Text style={styles.inputsec_headerText}>Session Title</Text>
-      <TextInput
+            <Text style={styles.inputsec_headerText}>Session Title</Text>
+            <TextInput
                 placeholder="Building the next big thing ..."
                 value={taskName}
-                onChangeText={(text) => settaskName(text)}
+                onChangeText={setTaskName}
                 style={styles.input}
             />
-      <Text style={styles.inputsec_subText}>Fun Fact : Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
+            <Text style={styles.inputsec_subText}>Fun Fact : Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
 
-      <View style={styles.sliderContainer}>
+            <View style={styles.sliderContainer}>
+                <RadialSlider
+                    style={styles.circularContainer}
+                    variant={'radial-circle-slider'}
+                    value={speed}
+                    min={0}
+                    max={120}
+                    onChange={setSpeed}
+                    title='Choose a duration'
+                    subTitle=''
+                    unit='mins'
+                    thumbColor={thumbColor}
+                    markerLineSize={10}
+                    sliderTrackColor='#F5F5F5'
+                    linearGradient={gradientColors}
+                    isHideLines
+                />
+            </View>
 
-        <RadialSlider
-          style={styles.circularContainer}
-          variant={'radial-circle-slider'}
-          value={speed}
-          min={0}
-          max={120}
-          onChange={setSpeed}
-          title='Choose a duration'
-          subTitle=''
-          unit='mins'
-          thumbColor={thumbColor}
-          markerLineSize={10}
-          sliderTrackColor='#F5F5F5'
-          linearGradient={gradientColors}
-          isHideLines
-        />
-      </View>
+            <View style={styles.btn_container}>
+                <TouchableOpacity style={[styles.button, styles.whiteButton]}>
+                    <Text style={[styles.btn_text, styles.blackText]}>Start Later</Text>
+                </TouchableOpacity>
 
-      <View style={styles.btn_container}>
-        {/* Black Button */}
-        <TouchableOpacity style={[styles.button, styles.whiteButton]}>
-                  <Text style={[styles.btn_text, styles.blackText]}>Start Later</Text>
-        </TouchableOpacity>
-
-        {/* White Button */}
-        <TouchableOpacity style={[styles.button, styles.blackButton]}>
-            <Text style={[styles.btn_text, styles.whiteText]}>Start Now</Text>
-        </TouchableOpacity>
-      </View>      
-    </View>
-  );
+                <TouchableOpacity 
+                    style={[styles.button, styles.blackButton]}
+                    onPress={handleStartNow}
+                >
+                    <Text style={[styles.btn_text, styles.whiteText]}>Start Now</Text>
+                </TouchableOpacity>
+            </View>      
+        </View>
+    );
 }
 
 // Styles for various components

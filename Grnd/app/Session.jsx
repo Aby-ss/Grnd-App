@@ -1,19 +1,54 @@
-import React from 'react';
+// Session.jsx
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
 
-export default function TabTwoScreen() {
+export default function Session() {
+  const { duration } = useLocalSearchParams();
+  const durationInMinutes = parseInt(duration) || 0;
+  const [timeLeft, setTimeLeft] = useState(durationInMinutes * 60);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 0) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (seconds) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return `${hours} hrs ${minutes} mins`;
+  };
+
+  const calculateProgress = () => {
+    const totalSeconds = durationInMinutes * 60;
+    const progress = Math.round(((totalSeconds - timeLeft) / totalSeconds) * 100);
+    return isNaN(progress) ? 0 : progress;
+  };
+
   return (
     <View style={styles.scrollContainer}>
-      {/* Header Section with Duration left + Motivational Quote */}
-      <Text style={[styles.headerText, styles.durationLeft]}>Duration Left : 1 hr 20 mins</Text>
+      <Text style={[styles.headerText, styles.durationLeft]}>
+        Duration Left : {formatTime(timeLeft)}
+      </Text>
       <Text style={[styles.subText, styles.motivationalQuote]}>
         "Most of the important things in the world have been accomplished by people who have kept on trying when there seemed to be no hope at all." —Dale Carnegie
       </Text>
 
       <View style={styles.durationContainer}>
-        <Text style={[styles.subText, styles.progressHeader]}>75% Progress</Text>
-        <View style={styles.completedProgress}></View>
-        <View style={styles.durationProgress}></View>
+        <Text style={[styles.subText, styles.progressHeader]}>
+          {calculateProgress()}% Progress
+        </Text>
+        <View style={[styles.completedProgress, { width: `${calculateProgress()}%`, backgroundColor: '#36d424' }]} />
+        <View style={styles.durationProgress} />
       </View>
     </View>
   );

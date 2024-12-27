@@ -8,8 +8,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
 
   const icons = {
     index: (props) => <AntDesign name="home" size={26} color={props.color} />,
-    explore: (props) => <Feather name="compass" size={26} color={props.color} />,
-    analytics: (props) => <AntDesign name="pluscircleo" size={26} color={props.color} />,
+    Session: (props) => <Feather name="compass" size={26} color={props.color} />,
   };
 
   return (
@@ -85,8 +84,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     marginHorizontal: 20,
-    paddingVertical: 15,
-    borderRadius: 25,
+    paddingVertical: 7,
+    borderRadius: 15,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 10 },
     shadowRadius: 10,
