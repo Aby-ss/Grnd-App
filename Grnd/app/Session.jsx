@@ -43,12 +43,21 @@ export default function Session() {
         "Most of the important things in the world have been accomplished by people who have kept on trying when there seemed to be no hope at all." —Dale Carnegie
       </Text>
 
-      <View style={styles.durationContainer}>
-        <Text style={[styles.subText, styles.progressHeader]}>
-          {calculateProgress()}% Progress
-        </Text>
-        <View style={[styles.completedProgress, { width: `${calculateProgress()}%`, backgroundColor: '#36d424' }]} />
-        <View style={styles.durationProgress} />
+      <View style={styles.progressContainer}>
+        {/* Background progress bar */}
+        <View style={styles.progressBackground}>
+          {/* Animated progress fill */}
+          <View 
+            style={[
+              styles.progressFill, 
+              { 
+                width: `${calculateProgress()}%`,
+              }
+            ]} 
+          />
+        </View>
+        {/* Progress text overlay */}
+        <Text style={styles.progressText}>{calculateProgress()}% Complete</Text>
       </View>
     </View>
   );
@@ -133,4 +142,36 @@ const styles = StyleSheet.create({
     top: 0,
     alignSelf: 'center', // Centers it horizontally in the parent
   },
+  progressContainer: {
+    position: 'absolute',
+    top: 270, // You can adjust this value to control vertical positioning
+    left: 20,
+    right: 20,
+    height: 60,
+    zIndex: 10, // This ensures it overlaps elements beneath it
+  },
+  progressBackground: {
+    width: '100%',
+    height: 45,
+    backgroundColor: '#E5E5E5',
+    borderRadius: 10,
+    overflow: 'hidden', // This ensures the fill doesn't exceed the container
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: '#36d424',
+    borderRadius: 10,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+  },
+  progressText: {
+    position: 'absolute',
+    top: 12,
+    left: 20,
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#333',
+    zIndex: 11, // This ensures text is always visible above the progress bar
+  }
 });
