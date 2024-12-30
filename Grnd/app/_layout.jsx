@@ -10,15 +10,9 @@ const _layout = () => {
         tabBar={props=> <TabBar {...props} />}
     >
         <Tabs.Screen
-            name="index"
+            name="Home"
             options={{
                 title: "Home"
-            }}
-        />
-        <Tabs.Screen
-            name="Session"
-            options={{
-                title: "Session"
             }}
         />
     </Tabs>

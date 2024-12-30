@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
+import ConfettiCannon from 'react-native-confetti-cannon';
 
 export default function Session() {
   const { duration } = useLocalSearchParams();
   const durationInMinutes = parseInt(duration) || 0;
   const [timeLeft, setTimeLeft] = useState(durationInMinutes * 60);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -34,6 +36,12 @@ export default function Session() {
     return isNaN(progress) ? 0 : progress;
   };
 
+  useEffect(() => {
+    if (calculateProgress() === 100) {
+      setShowConfetti(true); // Trigger confetti at 100% progress
+    }
+  }, [timeLeft]);
+
   return (
     <View style={styles.scrollContainer}>
       <Text style={[styles.headerText, styles.durationLeft]}>
@@ -59,6 +67,15 @@ export default function Session() {
         {/* Progress text overlay */}
         <Text style={styles.progressText}>{calculateProgress()}% Complete</Text>
       </View>
+
+      {/* Confetti Cannon */}
+      {showConfetti && (
+        <ConfettiCannon
+          count={200}
+          origin={{ x: 0, y: 0 }}
+          fadeOut={true} // Automatically fades out
+        />
+      )}
     </View>
   );
 }

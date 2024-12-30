@@ -37,6 +37,7 @@
     "react-native-circular-progress": "^1.4.1",
     "react-native-circular-progress-indicator": "^4.4.2",
     "react-native-circular-slider": "^1.0.1",
+    "react-native-confetti-cannon": "^1.5.2",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-radial-slider": "^1.1.0",
