@@ -21,14 +21,29 @@ export default function HomeScreen() {
         <Text style={styles.focusHeader}>Focus Profile</Text>
         <Text style={styles.focusSubheader}>Complete longer sessions to increase your focus profile 🔥</Text>
 
-        
+        <View style={styles.progressContainer}>
+        {/* Background progress bar */}
+        <View style={styles.progressBackground}>
+          {/* Animated progress fill */}
+          <View 
+            style={[
+              styles.progressFill, 
+              { 
+                width: `80%`,
+              }
+            ]} 
+          />
+        </View>
+        {/* Progress text overlay */}
+        <Text style={styles.progressText}>80%</Text>
+      </View>
       </View>
     </View>
   );
 }
 
 // Styles for various components
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1, // Ensures the ScrollView adapts to its content
     backgroundColor: '#E9E9E9', // Light gray background color
@@ -103,5 +118,39 @@ const styles = StyleSheet.create({
     width: 200,
     letterSpacing: -0.5,
     textAlign: 'center',
+  },
+  progressContainer: {
+    position: 'absolute',
+    top: 270, // You can adjust this value to control vertical positioning
+    left: 20,
+    right: 20,
+    height: 60,
+    zIndex: 10, // This ensures it overlaps elements beneath it
+  },
+  progressBackground: {
+    width: '100%',
+    height: 65,
+    backgroundColor: '#E5E5E5',
+    borderRadius: 5,
+    overflow: 'hidden', // This ensures the fill doesn't exceed the container
+    marginTop: -160,
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: '#36d424',
+    borderRadius: 5,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+  },
+  progressText: {
+    position: 'absolute',
+    top: -140,
+    left: 130,
+    fontSize: 24,
+    fontWeight: '800',
+    letterSpacing: -0.5,
+    color: '#333',
+    zIndex: 11, // This ensures text is always visible above the progress bar
   },
 });
