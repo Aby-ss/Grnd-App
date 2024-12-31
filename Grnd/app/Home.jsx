@@ -19,24 +19,26 @@ export default function HomeScreen() {
 
       <View style={styles.focusmetricContainer}>
         <Text style={styles.focusHeader}>Focus Profile</Text>
-        <Text style={styles.focusSubheader}>Complete longer sessions to increase your focus profile 🔥</Text>
+        <Text style={styles.focusSubheader}>Updated Yesterday 9:45 AM</Text>
 
         <View style={styles.progressContainer}>
-        {/* Background progress bar */}
-        <View style={styles.progressBackground}>
-          {/* Animated progress fill */}
-          <View 
-            style={[
-              styles.progressFill, 
-              { 
-                width: `80%`,
-              }
-            ]} 
-          />
+          {/* Background progress bar */}
+          <View style={styles.progressBackground}>
+            {/* Animated progress fill */}
+            <View 
+              style={[
+                styles.progressFill, 
+                { 
+                  width: `80%`,
+                }
+              ]} 
+            />
+          </View>
+          {/* Progress text overlay */}
+          <Text style={styles.progressText}>80%</Text>
+          <Text style={styles.focusFooter_Header}>It's all good !</Text>
+          <Text style={styles.focusFooter}>Complete longer sessions to increase your focus profile 🔥</Text>
         </View>
-        {/* Progress text overlay */}
-        <Text style={styles.progressText}>80%</Text>
-      </View>
       </View>
     </View>
   );
@@ -104,7 +106,7 @@ export const styles = StyleSheet.create({
   focusHeader: {
     fontSize: 25, // Large font size for the header text
     fontWeight: '800', // Bold text
-    color: '#333', // Dark gray text color
+    color: '#262626', // Dark gray text color
     marginTop: 5, // Adjust positioning
     marginLeft: 80,
     letterSpacing: -0.5,
@@ -121,7 +123,7 @@ export const styles = StyleSheet.create({
   },
   progressContainer: {
     position: 'absolute',
-    top: 270, // You can adjust this value to control vertical positioning
+    top: 245, // You can adjust this value to control vertical positioning
     left: 20,
     right: 20,
     height: 60,
@@ -152,5 +154,25 @@ export const styles = StyleSheet.create({
     letterSpacing: -0.5,
     color: '#333',
     zIndex: 11, // This ensures text is always visible above the progress bar
+  },
+  focusFooter_Header: {
+    fontSize: 24, // Large font size for the header text
+    fontWeight: '800', // Bold text
+    color: '#262626', // Dark gray text color
+    marginTop: 7, // Adjust positioning
+    marginLeft: 61,
+    width: 200,
+    letterSpacing: -0.5,
+    textAlign: 'center',
+  },
+  focusFooter: {
+    fontSize: 15, // Large font size for the header text
+    fontWeight: '600', // Bold text
+    color: '#7C7C7C', // Dark gray text color
+    marginTop: 7, // Adjust positioning
+    marginLeft: 61,
+    width: 200,
+    letterSpacing: -0.5,
+    textAlign: 'center',
   },
 });
