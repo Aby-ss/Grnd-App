@@ -1,0 +1,1 @@
+{"version":3,"names":["NitroModules","HybridNitroSQLite","createHybridObject","locks"],"sourceRoot":"../../src","sources":["nitro.ts"],"mappings":";;AAAA,SAASA,YAAY,QAAQ,4BAA4B;AAIzD,OAAO,MAAMC,iBAAiB,GAC5BD,YAAY,CAACE,kBAAkB,CAAkB,aAAa,CAAC;AAEjE,OAAO,MAAMC,KAGZ,GAAG,CAAC,CAAC","ignoreList":[]}
