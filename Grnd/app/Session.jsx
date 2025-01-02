@@ -11,9 +11,11 @@ export default function Session() {
 
   const [timeLeft, setTimeLeft] = useState(durationInMinutes * 60);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [timerRunning, setTimerRunning] = useState(true); // State to control timer activity
-  const [taskName, setTaskName] = useState(initialTaskName); // State for task name
-  const [speed, setSpeed] = useState(initialSpeed); // State for speed
+  const [timerRunning, setTimerRunning] = useState(true);
+  const [taskName, setTaskName] = useState(initialTaskName);
+  const [speed, setSpeed] = useState(initialSpeed);
+
+  const [sessionId, setSessionId] = useState(null); // Track session ID for updates
 
   useEffect(() => {
     if (!timerRunning) return; // Exit if the timer is stopped
@@ -30,6 +32,36 @@ export default function Session() {
 
     return () => clearInterval(timer);
   }, [timerRunning]); // Rerun effect when timerRunning changes
+
+  const startSession = async () => {
+    const { data, error } = await supabase
+      .from('sessions')
+      .insert([
+        {
+          title: taskName,
+          start_time: new Date().toISOString(),
+          duration: durationInMinutes * 60,
+          completed: false,
+        },
+      ])
+      .select();
+    if (data) setSessionId(data[0].id); // Save session ID for updates
+    if (error) console.error("Error starting session:", error.message);
+  };
+
+  const endSession = async (completed) => {
+    if (!sessionId) return;
+
+    const { error } = await supabase
+      .from('sessions')
+      .update({
+        end_time: new Date().toISOString(),
+        completed,
+      })
+      .eq('id', sessionId);
+    if (error) console.error("Error ending session:", error.message);
+  };
+
 
   const resetSession = () => {
     setTimerRunning(false); // Stop the timer
