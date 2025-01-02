@@ -38,10 +38,11 @@ export default function HomeScreen() {
             return;
         }
         
-        router.push({
-            pathname: "/Session",
-            params: { duration: speed, title: taskName }
-        });
+    router.push({
+      pathname: "/Session",
+      params: { taskName, speed: String(speed), duration: speed },
+    });
+  
     };
 
     return (

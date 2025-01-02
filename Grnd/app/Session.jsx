@@ -5,6 +5,7 @@ import { useLocalSearchParams } from 'expo-router';
 import ConfettiCannon from 'react-native-confetti-cannon';
 
 export default function Session() {
+  const { taskName = "No Title", speed = "0" } = useLocalSearchParams();
   const { duration } = useLocalSearchParams();
   const durationInMinutes = parseInt(duration) || 0;
   const [timeLeft, setTimeLeft] = useState(durationInMinutes * 60);
@@ -51,6 +52,8 @@ export default function Session() {
         "Most of the important things in the world have been accomplished by people who have kept on trying when there seemed to be no hope at all." —Dale Carnegie
       </Text>
 
+      <Text style={[styles.sessionDetails_Title]}>Session Title : {taskName}</Text>
+      <Text style={styles.sessionDetails_Duration}>Duration : {speed} mins</Text>
       <View style={styles.progressContainer}>
         {/* Background progress bar */}
         <View style={styles.progressBackground}>
@@ -101,11 +104,13 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: '800',
     color: '#333',
+    letterSpacing: -0.5,
   },
   subText: {
     fontSize: 16,
     fontWeight: '600',
     color: '#777777',
+    letterSpacing: -0.5,
   },
   motivationalQuote: {
     position: 'absolute',
@@ -159,9 +164,27 @@ const styles = StyleSheet.create({
     top: 0,
     alignSelf: 'center', // Centers it horizontally in the parent
   },
+  sessionDetails_Title: {
+    position: 'absolute',
+    top: 270,
+    left: 30,
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#262626',
+    letterSpacing: -0.6,
+  },
+  sessionDetails_Duration: {
+    position: 'absolute',
+    top: 290,
+    left: 30,
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#262626',
+    letterSpacing: -0.6,
+  },
   progressContainer: {
     position: 'absolute',
-    top: 270, // You can adjust this value to control vertical positioning
+    top: 320,
     left: 20,
     right: 20,
     height: 60,
