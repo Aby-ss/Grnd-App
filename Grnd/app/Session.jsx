@@ -1,17 +1,23 @@
 // Session.jsx
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import ConfettiCannon from 'react-native-confetti-cannon';
 
 export default function Session() {
-  const { taskName = "No Title", speed = "0" } = useLocalSearchParams();
+  const { taskName: initialTaskName = "No Title", speed: initialSpeed = "0" } = useLocalSearchParams();
   const { duration } = useLocalSearchParams();
   const durationInMinutes = parseInt(duration) || 0;
+
   const [timeLeft, setTimeLeft] = useState(durationInMinutes * 60);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [timerRunning, setTimerRunning] = useState(true); // State to control timer activity
+  const [taskName, setTaskName] = useState(initialTaskName); // State for task name
+  const [speed, setSpeed] = useState(initialSpeed); // State for speed
 
   useEffect(() => {
+    if (!timerRunning) return; // Exit if the timer is stopped
+
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
@@ -23,7 +29,15 @@ export default function Session() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [timerRunning]); // Rerun effect when timerRunning changes
+
+  const resetSession = () => {
+    setTimerRunning(false); // Stop the timer
+    setShowConfetti(false); // Hide confetti
+    setTimeLeft(0 * 60); // Reset timeLeft to initial duration
+    setTaskName("No Title"); // Reset task name
+    setSpeed("0"); // Reset speed
+  };
 
   const formatTime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
@@ -34,14 +48,18 @@ export default function Session() {
   const calculateProgress = () => {
     const totalSeconds = durationInMinutes * 60;
     const progress = Math.round(((totalSeconds - timeLeft) / totalSeconds) * 100);
+
+    // Ensure progress is 0 when timer is reset
+    if (!timerRunning) return 0;
+
     return isNaN(progress) ? 0 : progress;
   };
 
   useEffect(() => {
-    if (calculateProgress() === 100) {
-      setShowConfetti(true); // Trigger confetti at 100% progress
+    if (timerRunning && calculateProgress() === 100) {
+      setShowConfetti(true); // Trigger confetti only during normal progression
     }
-  }, [timeLeft]);
+  }, [timeLeft, timerRunning]);
 
   return (
     <View style={styles.scrollContainer}>
@@ -70,6 +88,10 @@ export default function Session() {
         {/* Progress text overlay */}
         <Text style={styles.progressText}>{calculateProgress()}% Complete</Text>
       </View>
+
+      <TouchableOpacity style={[styles.button, styles.whiteButton]}>
+        <Text style={[styles.btn_text, styles.blackText]} onPress={resetSession}>Cancel Timer</Text>
+      </TouchableOpacity>
 
       {/* Confetti Cannon */}
       {showConfetti && (
@@ -213,5 +235,23 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#333',
     zIndex: 11, // This ensures text is always visible above the progress bar
-  }
+  },
+  button: {
+    position: 'absolute',
+    top: 380,
+    left: 120,
+    padding: 16,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  whiteButton: {
+    backgroundColor: '#FFF',
+    borderWidth: 1,
+    borderColor: '#000',
+  },
+  btn_text: {
+    fontSize: 16,
+    fontWeight: '700',
+  },
 });
