@@ -17,7 +17,7 @@ const _layout = () => {
         />
 
         <Tabs.Screen
-            name="Session"
+            name="index"
             options={{
                 title: "Timer"
             }}

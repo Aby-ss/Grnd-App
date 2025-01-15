@@ -8,7 +8,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
 
   const icons = {
     Home: (props) => <AntDesign name="home" size={26} color={props.color} />,
-    Session: (props) => <Feather name="compass" size={26} color={props.color} />,
+    index: (props) => <Feather name="compass" size={26} color={props.color} />,
   };
 
   return (
