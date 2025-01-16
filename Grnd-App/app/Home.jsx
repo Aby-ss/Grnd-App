@@ -17,7 +17,16 @@ export default function HomeScreen() {
         <Text style={styles.subheader}>Tuesday 3 December, 2024</Text>
       </View>
 
-      
+      <View style={styles.section}>
+      <Image
+          source={require('@/assets/images/background.jpg')} // Replace with your own image path
+          style={styles.sectionImage}
+        />
+        <Text style={styles.paragraph}>
+          “If you know the enemy and know yourself, you need not fear the result of a hundred battles. If you know yourself but not the enemy, for every victory gained you will also suffer a defeat.” {"\n"}
+          <Text style={styles.bold}>― Sun Tzu, The Art of War</Text>
+        </Text>
+      </View>
     </View>
   );
 }
@@ -60,13 +69,6 @@ export const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: '#2074fa',
   },
-  section: {
-    backgroundColor: '#d1cfcf', // Light gray background for sections
-    marginBottom: 16, // Spacing below each section
-    padding: 16,
-    marginTop: 15,
-    borderRadius: 5,
-  },
   paragraph: {
     fontSize: 16, // Normal font size for paragraphs
     color: '#666', // Lighter gray color
@@ -75,5 +77,16 @@ export const styles = StyleSheet.create({
   bold: {
     fontWeight: 'bold', // Bold text for emphasis
     color: '#000', // Black text for emphasis
+  },
+  section: {
+    backgroundColor: '#d1cfcf', // Light gray background for sections
+    marginBottom: 16, // Spacing below each section
+    padding: 16,
+    marginTop: 35,
+    borderRadius: 5,
+    minHeight: 500,
+  },
+  sectionImage: {
+
   },
 });
