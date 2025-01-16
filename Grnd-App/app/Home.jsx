@@ -17,29 +17,7 @@ export default function HomeScreen() {
         <Text style={styles.subheader}>Tuesday 3 December, 2024</Text>
       </View>
 
-      <View style={styles.focusmetricContainer}>
-        <Text style={styles.focusHeader}>Focus Profile</Text>
-        <Text style={styles.focusSubheader}>Updated Yesterday 9:45 AM</Text>
-
-        <View style={styles.progressContainer}>
-          {/* Background progress bar */}
-          <View style={styles.progressBackground}>
-            {/* Animated progress fill */}
-            <View 
-              style={[
-                styles.progressFill, 
-                { 
-                  width: `80%`,
-                }
-              ]} 
-            />
-          </View>
-          {/* Progress text overlay */}
-          <Text style={styles.progressText}>80%</Text>
-          <Text style={styles.focusFooter_Header}>It's all good !</Text>
-          <Text style={styles.focusFooter}>Complete longer sessions to increase your focus profile 🔥</Text>
-        </View>
-      </View>
+      
     </View>
   );
 }
@@ -97,82 +75,5 @@ export const styles = StyleSheet.create({
   bold: {
     fontWeight: 'bold', // Bold text for emphasis
     color: '#000', // Black text for emphasis
-  },
-  focusmetricContainer: {
-    marginBottom: 16, // Spacing below each section
-    padding: 16,
-    marginTop: 35,
-  },
-  focusHeader: {
-    fontSize: 25, // Large font size for the header text
-    fontWeight: '800', // Bold text
-    color: '#262626', // Dark gray text color
-    marginTop: 5, // Adjust positioning
-    marginLeft: 80,
-    letterSpacing: -0.5,
-  },
-  focusSubheader: {
-    fontSize: 15, // Large font size for the header text
-    fontWeight: '600', // Bold text
-    color: '#7C7C7C', // Dark gray text color
-    marginTop: 3, // Adjust positioning
-    marginLeft: 61,
-    width: 200,
-    letterSpacing: -0.5,
-    textAlign: 'center',
-  },
-  progressContainer: {
-    position: 'absolute',
-    top: 245, // You can adjust this value to control vertical positioning
-    left: 20,
-    right: 20,
-    height: 60,
-    zIndex: 10, // This ensures it overlaps elements beneath it
-  },
-  progressBackground: {
-    width: '100%',
-    height: 65,
-    backgroundColor: '#E5E5E5',
-    borderRadius: 5,
-    overflow: 'hidden', // This ensures the fill doesn't exceed the container
-    marginTop: -160,
-  },
-  progressFill: {
-    height: '100%',
-    backgroundColor: '#36d424',
-    borderRadius: 5,
-    position: 'absolute',
-    left: 0,
-    top: 0,
-  },
-  progressText: {
-    position: 'absolute',
-    top: -140,
-    left: 130,
-    fontSize: 24,
-    fontWeight: '800',
-    letterSpacing: -0.5,
-    color: '#333',
-    zIndex: 11, // This ensures text is always visible above the progress bar
-  },
-  focusFooter_Header: {
-    fontSize: 24, // Large font size for the header text
-    fontWeight: '800', // Bold text
-    color: '#262626', // Dark gray text color
-    marginTop: 7, // Adjust positioning
-    marginLeft: 61,
-    width: 200,
-    letterSpacing: -0.5,
-    textAlign: 'center',
-  },
-  focusFooter: {
-    fontSize: 15, // Large font size for the header text
-    fontWeight: '600', // Bold text
-    color: '#7C7C7C', // Dark gray text color
-    marginTop: 7, // Adjust positioning
-    marginLeft: 61,
-    width: 200,
-    letterSpacing: -0.5,
-    textAlign: 'center',
   },
 });
