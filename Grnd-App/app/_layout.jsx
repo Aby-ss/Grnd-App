@@ -22,6 +22,13 @@ const _layout = () => {
                 title: "Timer"
             }}
         />
+
+        <Tabs.Screen
+            name="Session"
+            options={{
+                title: "Current Session"
+            }}
+        />
     </Tabs>
   )
 }

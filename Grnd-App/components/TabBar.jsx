@@ -1,14 +1,15 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 
 const TabBar = ({ state, descriptors, navigation }) => {
-  const primaryColor = '#0891b2';
+  const primaryColor = '#2074fa';
   const greyColor = '#737373';
 
   const icons = {
-    Home: (props) => <AntDesign name="home" size={26} color={props.color} />,
-    index: (props) => <Feather name="compass" size={26} color={props.color} />,
+    Home: (props) => <Entypo name="home" size={26} color={props.color} />,
+    index: (props) => <MaterialCommunityIcons name="timer" size={26} color={props.color} />,
+    Session: (props) => <Entypo name="time-slot" size={26} color={props.color} />,
   };
 
   return (

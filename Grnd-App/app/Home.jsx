@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
     marginTop: 65,
     marginRight: 285,
     borderWidth: 5,
-    borderColor: '#59CC1B',
+    borderColor: '#2074fa',
   },
   section: {
     backgroundColor: '#d1cfcf', // Light gray background for sections
